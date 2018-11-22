@@ -38,7 +38,30 @@ in JavaScript (and evaluated in a separate non-UI thread using Web Workers).</p>
 to the following simple API.  There are two objects defined for you; <code>sensor</code> and <code>action</code>.
 </p>
 
-<h2>API Summary</h2>
+
+<h2>Globals</h2>
+<div class="container">
+<table class="table table-striped">
+	<tr>
+		<th>Global Object</th><th>Description</th>
+	</tr>
+	<tr>
+		<td><code>state</code></td><td>A JSON object that the vacuum can use to store state information
+		across steps.</td>
+	</tr>
+	<tr>
+		<td><code>sensor</code></td><td>A Sensor object the code in the algorithm can query to find information in the environment.</td>
+	</tr>
+	<tr>
+		<td><code>action</code></td><td>An Action object that code in the algorithm uses to perform an action with the vacuum.</td>
+	</tr>
+</table> 
+
+</div>
+
+
+<h2>Objects</h2>
+
 <div class="container">
 <h3>Sensor</h3>
 <table class="table table-striped">

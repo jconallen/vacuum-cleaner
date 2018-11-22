@@ -247,12 +247,12 @@
             <div class="col-md-7">
                <div class="panel panel-success">
                   <div class="panel-heading">
-                  <h3 id="titleAlgorithm" class="panel-title">Algorithm</h3>
+                  <h3 id="titleAlgorithm" class="panel-title">Vacuum Algorithm</h3>
                   </div>
                   <div class="panel-body" >
                   
- 					<div class="container tab-pane" style="height: 100%; width: 100%; min-height: 400px;"><br>
- 						<textarea id="algorithm" style="min-width: 100%; min-height: 400px; font-family:'Courier'; font-size: 8pt;" > 
+ 					<div class="container tab-pane" style="height: 100%; width: 100%; min-height: 200px;"><br>
+ 						<textarea id="algorithm" style="min-width: 100%; min-height: 200px; font-family:'Courier'; font-size: 8pt;" > 
 if( sensor.dirty() ) {
   log('cleaning dirt');
   action.suck();
@@ -269,6 +269,23 @@ action.moveRandom();
 					</button>
                   </div>
                </div>
+
+               <div class="panel panel-success">
+                  <div class="panel-heading">
+                  <h3 id="titleAlgorithm" class="panel-title">Vacuum State</h3>
+                  </div>
+                  <div class="panel-body" >
+                  
+ 					<div class="container tab-pane" style="height: 100%; width: 100%; min-height: 200px;"><br>
+ 						<textarea id="state" style="min-width: 100%; min-height: 200px; font-family:'Courier'; font-size: 8pt;" > 
+		
+ 						</textarea>
+ 					</div>
+                  
+                  </div>
+               </div>
+
+
             </div>
    </div>
 
@@ -283,6 +300,7 @@ action.moveRandom();
 	var environment = new Environment();
 	var starting_state = JSON.stringify( environment );
 	var algorithm = $('#algorithm').text();
+	var vacuumState = {};
 	
 	var vacuumWorker;
 	
@@ -291,6 +309,10 @@ action.moveRandom();
 		vacuumWorker.onmessage = function(e) {
 			if( e.data.environment != undefined ){
 				environment.update(e.data.environment);
+				updateDisplay();
+			}
+			if( e.data.state != undefined ){
+				vacuumState = e.data.state;
 				updateDisplay();
 			}
 			if( e.data.log != undefined ) {
@@ -303,7 +325,7 @@ action.moveRandom();
 	
 
 	function next(){
-		vacuumWorker.postMessage({ "environment": environment, "algorithm": algorithm } );
+		vacuumWorker.postMessage({ "environment": environment, "algorithm": algorithm, "state": vacuumState } );
 	}
 
 	function reset(){
@@ -500,6 +522,9 @@ action.moveRandom();
 				board.rows[vrow+1].cells[vcol+1].innerHTML = '<img src="images/vc.png">';
 			}
 		}
+		
+		$('#state').val(JSON.stringify(vacuumState,null,4) );
+	
  	}
 	
 	function updateAlgorithm(){

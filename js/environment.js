@@ -8,6 +8,9 @@ class Environment {
 			this._cost_suck = 2;
 			this._cost_move = 1;
 			
+			// use accesible state
+			this.state = {};
+			
 			// initialize grid
 			this._grid = new Array(10);
 			for(var r = 0; r<10; r++ ){
@@ -26,6 +29,15 @@ class Environment {
 		this._cost_move = data._cost_move;
 		this._energy = data._energy;
 	}
+	
+	// public methods for vacuum API
+	
+	energy(){
+		return this._energy;
+	}
+	
+
+	// end of public methods
 	
 	_set(row,col,val){
 		if( 0<=row && row <=9 && 0<=col && col<=9 ) {
@@ -85,7 +97,7 @@ class Environment {
 	}
 
 	energy(){
-		return energy;
+		return this._energy;
 	}
 	
 	isDirty(){

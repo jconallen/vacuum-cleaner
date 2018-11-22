@@ -14,6 +14,7 @@ onmessage = function(e){
 		var environment = new Environment(e.data.environment);
 		var sensor = new Sensor(environment);
 		var action = new Action(environment);
+		var state = e.data.state;
 		
 		var msg = "";
 		try{
@@ -24,7 +25,7 @@ onmessage = function(e){
 		}
 		
 		
-		postMessage( { "environment": environment } );
+		postMessage( { "environment": environment, "state": state } );
 
 	}
 
