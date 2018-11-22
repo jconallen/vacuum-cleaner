@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Vacuum Cleaner Simulator</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" />	
+  	<link rel="stylesheet" href="css/cnc.css" >
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/todc-bootstrap/3.3.7-3.3.13/js/bootstrap.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+ 	<link rel="icon" type="image/png" href="images/vc.png">
+</head>
+
+<body>
+
+<div class="container" >
+
+	<div class="container" style="padding:15px;">
+		<div class="row">
+	    	<div class="col-md-12">
+	    		<h1>Vacuum Cleaner Simulator <img src="images/vc.lg.png" style="width:64px;"></h1>
+	    		<a href="api.html" target="_blank">API</a> |
+	    		<a href="about.html" target="_blank">About</a> 
+	    	</div>
+	    	
+	 	</div>
+	</div>
+   
+
+ 	<div class="row">
+	    <div class="col-md-12">
+		    <div class="panel panel-primary" >
+		    	<div class="panel-heading" >
+					<h3 class="panel-title">Controls</h3>
+				</div>
+				<div class="panel-body" >
+						<button type="button" class="btn btn-default" onclick="next()" id="nextBtn">
+							<span class="glyphicon glyphicon-step-forward"></span> Next Move
+						</button>
+						<button type="button" class="btn btn-default" onclick="block()" id="blockBtn">
+							<span class="glyphicon glyphicon-stop"></span> Block Cells
+						</button>
+						<button type="button" class="btn btn-default" onclick="dirt()" id="dirtBtn">
+							<span class="glyphicon glyphicon-triangle-top"></span> Place Dirt
+						</button>
+						<button type="button" class="btn btn-default" onclick="place()" id="placeBtn">
+							<span class="glyphicon glyphicon-ice-lolly"></span> Place Vacuum
+						</button>
+						<button type="button" class="btn btn-default" onclick="reset()" id="placeBtn">
+							<span class="glyphicon glyphicon-refresh"></span> Reset
+						</button>
+				</div>
+		    </div>
+	    </div>
+
+    </div>
+    
+ 	<div class="row">
+	 	<div class="col-md-5">
+	 	
+			<div class="panel panel-info" >
+				<div class="panel-heading" >
+			    	<h3 class="panel-title">World</h3>
+			    </div>
+			    <div class="panel-body" style="min-height: 530px; margin-top: 0; margin-bottom: 0; padding-top: 0; padding-bottom:0;">
+			    	<div class="row">
+						<div class="container"><br>
+	 						<p id="energy"><b>Energy: 0</b></p>
+	 					</div>
+			    	</div>
+			    
+			    	<div class="row">
+						<div class="container" ><br>
+			    		<table id="world">
+							<tr>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell">0</td>
+								<td class="gameboard-cell">1</td>
+								<td class="gameboard-cell">2</td>
+								<td class="gameboard-cell">3</td>
+								<td class="gameboard-cell">4</td>
+								<td class="gameboard-cell">5</td>
+								<td class="gameboard-cell">6</td>
+								<td class="gameboard-cell">7</td>
+								<td class="gameboard-cell">8</td>
+								<td class="gameboard-cell">9</td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">0</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">1</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">2</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">3</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">4</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr> 
+							<tr>
+								<td class="gameboard-cell">5</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">6</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">7</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">8</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td class="gameboard-cell">9</td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+								<td class="gameboard-cell"></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td style="border-top: 1px solid gray"></td>
+								<td ></td>
+							</tr>
+						</table>
+			    		</div>
+			    	</div>
+			    	<div class="row" style="padding-right: 10px; padding-left: 10px; padding-top: 20px; paddingbottonm: 10px;">
+	 						<textarea id="console" style="width: 100%; min-height: 150px; font-family:'Courier'; font-size: 8pt; " > </textarea>
+			    	</div>
+			  	</div>
+
+			</div>
+		
+		</div>
+
+            <div class="col-md-7">
+               <div class="panel panel-success">
+                  <div class="panel-heading">
+                  <h3 id="titleAlgorithm" class="panel-title">Algorithm</h3>
+                  </div>
+                  <div class="panel-body" >
+                  
+ 					<div class="container tab-pane" style="height: 100%; width: 100%; min-height: 400px;"><br>
+ 						<textarea id="algorithm" style="min-width: 100%; min-height: 400px; font-family:'Courier'; font-size: 8pt;" > 
+if( sensor.dirty() ) {
+  log('cleaning dirt');
+  action.suck();
+} 
+
+action.moveRandom();											
+ 						</textarea>
+ 					</div>
+                  
+                  </div>
+                  <div class="panel-footer">
+                  	<button type="button" class="btn btn-default" onclick="updateAlgorithms()" id="updateBtn">
+						<span class="glyphicon glyphicon-cloud-upload"></span> Update Algorithm
+					</button>
+                  </div>
+               </div>
+            </div>
+   </div>
+
+	
+</div> <!--  outer container -->
+
+<script src="js/environment.js"></script>
+<script src="js/vacuumWorker.js"></script>
+	    
+<script type="text/javascript">
+	
+	var environment = new Environment();
+	var starting_state = JSON.stringify( environment );
+	var algorithm = $('#algorithm').text();
+	
+	var vacuumWorker;
+	
+	if (typeof(Worker) !== "undefined") {
+		vacuumWorker = new Worker("js/vacuumWorker.js");
+		vacuumWorker.onmessage = function(e) {
+			if( e.data.environment != undefined ){
+				environment.update(e.data.environment);
+				updateDisplay();
+			}
+			if( e.data.log != undefined ) {
+				log(e.data.log);
+			}
+		}
+	} else {
+	    alert('Web Worker not supported in this browser');
+	} 
+	
+
+	function next(){
+		vacuumWorker.postMessage({ "environment": environment, "algorithm": algorithm } );
+	}
+
+	function reset(){
+		var state = JSON.parse(starting_state);
+		environment.update(state);
+		updateDisplay();
+	}
+	
+	function block(){
+		
+		var text = $('#blockBtn').html();
+		if( text.indexOf('Done')>=0 ) {
+			$('#nextBtn').prop("disabled", false);
+			$('#dirtBtn').prop("disabled", false);
+			$('#placeBtn').prop("disabled", false);
+			$('#blockBtn').html('<span class="glyphicon glyphicon-stop"></span> Block Cells');
+			
+			var table = document.getElementById("world");
+			if (table != null) {
+			    for (var i = 1; i < table.rows.length; i++) {
+			        for (var j = 1; j < table.rows[i].cells.length; j++)
+			        table.rows[i].cells[j].onclick = function() {
+			            return false;
+			        }
+			    }
+			}
+		} else {
+			$('#nextBtn').prop("disabled", true);
+			$('#dirtBtn').prop("disabled", true);
+			$('#placeBtn').prop("disabled", true);
+			$('#blockBtn').html('<span class="glyphicon glyphicon-stop"></span> Done');
+			
+			var table = document.getElementById("world");
+			if (table != null) {
+			    for (var i = 1; i < table.rows.length; i++) {
+			        for (var j = 1; j < table.rows[i].cells.length; j++) {
+			        	table.rows[i].cells[j].onclick = function (e) {
+			        		var cell = e.srcElement;
+			        		var r = cell.parentNode.rowIndex-1;
+			        		var c = cell.cellIndex-1;
+			        		if( this.style.backgroundColor == 'grey' ) {
+				        		this.style.backgroundColor = 'white';
+				        		environment.unblock(r,c);
+			        		} else {
+				        		this.style.backgroundColor = 'grey';
+				        		environment.block(r,c);
+			        		}
+			        	}
+			        }
+			    }
+			}
+			starting_state = JSON.stringify( environment );
+		}
+	}
+
+
+	function dirt(){
+		
+		var text = $('#dirtBtn').html();
+		if( text.indexOf('Done')>=0 ) {
+			$('#nextBtn').prop("disabled", false);
+			$('#blockBtn').prop("disabled", false);
+			$('#placeBtn').prop("disabled", false);
+			$('#dirtBtn').html('<span class="glyphicon glyphicon-triangle-top"></span> Place Dirt');
+			
+			var table = document.getElementById("world");
+			if (table != null) {
+			    for (var i = 1; i < table.rows.length; i++) {
+			        for (var j = 1; j < table.rows[i].cells.length; j++)
+			        table.rows[i].cells[j].onclick = function() {
+			            return false;
+			        }
+			    }
+			}
+		} else {
+			$('#nextBtn').prop("disabled", true);
+			$('#blockBtn').prop("disabled", true);
+			$('#placeBtn').prop("disabled", true);
+			$('#dirtBtn').html('<span class="glyphicon glyphicon-stop"></span> Done');
+			
+			var table = document.getElementById("world");
+			if (table != null) {
+			    for (var i = 1; i < table.rows.length; i++) {
+			        for (var j = 1; j < table.rows[i].cells.length; j++)
+			        table.rows[i].cells[j].onclick = function () {
+		        		var r = this.parentNode.rowIndex-1;
+		        		var c = this.cellIndex-1;
+			        	if( this.innerHTML.indexOf('dirt.png')>=0 ) {
+				        	this.innerHTML = '';
+				        	environment.removeDirt(r,c);
+			        	} else {
+				        	this.innerHTML = '<img src="images/dirt.png">';
+				        	environment.addDirt(r,c);
+			        	}
+			        };
+			    }
+			}
+			starting_state = JSON.stringify( environment );
+		}
+	}
+	
+	var placingVacuum = false;
+	var prow = -1;
+	var pcol = -1;
+	
+	function place(){
+		
+		placingVacuum = !placingVacuum;
+		
+		if( placingVacuum ) {
+			$('#nextBtn').prop("disabled", true);
+			$('#dirtBtn').prop("disabled", true);
+			$('#blockBtn').prop("disabled", true);
+			$('#placeBtn').html('<span class="glyphicon glyphicon-stop"></span> Done');
+			
+			var table = document.getElementById("world");
+			if (table != null) {
+			    for (var i = 1; i < table.rows.length; i++) {
+			        for (var j = 1; j < table.rows[i].cells.length; j++)
+			        table.rows[i].cells[j].onclick = function(e) {
+		        		var cell = e.srcElement;
+		        		var r = cell.parentNode.rowIndex;
+		        		var c = cell.cellIndex;
+			        	
+						if( prow >= 0 && prow<=9 && pcol >=0 && pcol<=9 ){
+							var tbl = $('#world')[0];
+							var pr = tbl.rows[prow+1];
+							var pcell = pr.cells[pcol+1];
+							pcell.innerHTML = "";
+						}
+			        	
+			        	prow = this.parentNode.rowIndex - 1;
+			        	pcol = this.cellIndex-1;
+			        	environment.setVacuum(prow,pcol);
+			        	starting_state = JSON.stringify( environment );
+			        	updateDisplay();
+			        }
+			    }
+			}
+			
+		} else {
+			$('#nextBtn').prop("disabled", false);
+			$('#dirtBtn').prop("disabled", false);
+			$('#blockBtn').prop("disabled", false);
+			$('#placeBtn').html('<span class="glyphicon glyphicon-ice-lolly"></span> Place Vacuum');
+			
+			var table = document.getElementById("world");
+			if (table != null) {
+			    for (var i = 0; i < table.rows.length; i++) {
+			        for (var j = 0; j < table.rows[i].cells.length; j++)
+			        table.rows[i].cells[j].onclick = function () {
+			            return false;
+			        };
+			    }
+			}
+		}
+	}
+	
+
+	
+	function updateDisplay(){
+		
+		$('#energy').html(`Energy <b>${environment._energy}`);
+		
+		var board = document.getElementById("world");
+
+		// first clear all rows/cols
+		for( var r = 0; r<10; r++){
+			for( var c = 0; c<10; c++ ) {
+				if( board.rows[r+1].cells[c+1] ) {
+					
+					var val = environment.grid(r,c);
+					if( val == 'B' ){
+						board.rows[r+1].cells[c+1].style.backgroundColor = 'grey';
+					} else {
+						board.rows[r+1].cells[c+1].style.backgroundColor = 'white';
+					}
+					if( val == 'D' ) {
+						board.rows[r+1].cells[c+1].innerHTML = '<img src="images/dirt.png">';
+					} else {
+						board.rows[r+1].cells[c+1].innerHTML = '';
+					}
+				}
+			}
+		}
+		
+		var vrow = environment._vac_row;
+		var vcol = environment._vac_col;
+		if( 0<=vrow && vrow<=9 && 0<=vcol && vcol<=9 ) {
+			var val = environment.grid(vrow,vcol);
+			if( val == 'D' ) {
+				board.rows[vrow+1].cells[vcol+1].innerHTML = '<img src="images/vc.dirt.png">';
+			} else {
+				board.rows[vrow+1].cells[vcol+1].innerHTML = '<img src="images/vc.png">';
+			}
+		}
+
+/* 		
+  
+ 		var val = "(" + environment._vac_row + "," + environment._vac_col+")\n";
+		for(var r=0;r<10;r++){
+			val += "\n";
+			for(var c=0; c<10; c++ ) {
+				if( environment.grid(r,c) == undefined || environment.grid(r,c) == '') {
+					val += "_";
+				} else {
+					val += environment.grid(r,c);
+				}
+				
+			}
+		}
+		console.log(val);
+ */
+ 	}
+
+
+
+	function log(msg){
+		var elm = document.getElementById("console");
+		if( elm ) {
+			var val = elm.value;
+			if( val.length>0 ){
+				val = val + '\n' + msg;
+			} else {
+				val = msg;
+			}
+			
+			elm.value = val;
+			elm.scrollTop = elm.scrollHeight;
+		}
+	}
+	
+
+</script>
+
+</body>
+</html>
+
+

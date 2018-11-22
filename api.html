@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	<title>Chicken and Corn Game</title>
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> 
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+ 	
+ 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.css" />
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+ 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js"></script>
+	<link rel="icon" type="image/png" href="images/chicken-icon.png"> 	
+  </head>
+
+<body>
+    <div class="container" style="padding:15px;">
+		<div class="row">
+	    	<div class="col-md-12">
+	    		<a href="index.html">Home</a> | <a href="about.html">About</a> 
+	    	</div>
+	    	
+	 	</div>
+	</div>
+<div class="container" >
+
+<h1>Chicken and Corn Game API <img src="images/chicken-icon.png" style="width:64px;"></h1>
+
+<p>In this game you need to supply or modify the JavaScript implementation of
+the algorithm for each player piece to behave by.  To help you do this there are 
+a number of APIs that you can call in your script.</p>
+
+<p>Each implementation of an algorithm is provided an object called <code>Me</code> that 
+is of type <code>Piece</code> that presents the player piece that is being asked for a move.
+With this object you determine your position on the game board by getting its <code>position</code>
+object.  You can use the other object to locate and compute distances to your target.  Eventually
+if you are coding a human algorithm you want to get your piece next to a chicken so you can then 
+call the <capture>capture()</capture> method to capture the chicken.  If you are coding the 
+algorithms for the chickens, you'll want to get as far away from the humans as you can.
+</p>
+<p>A <code>position</code> object holds the <code>row</code> and <code>col</code> values of 
+the board location.  The game board coordinates (row and col) have values 0 to 7.
+</p>
+
+<h2>Globals</h2>
+<div class="container">
+<table class="table table-striped">
+	<tr>
+		<th>Global Object</th><th>Description</th>
+	</tr>
+	<tr>
+		<td><code>Game</code></td><td>The single instance of this game, 
+		of type <code>_Game</code>.</td>
+	</tr>
+	<tr>
+		<td><code>Rooster</code></td><td>The piece representing the Rooster, 
+		of type <code>Piece</code>.</td>
+	</tr>
+	<tr>
+		<td><code>Farmer</code></td><td>The piece representing the Farmer, 
+		of type <code>Piece</code>.</td>
+	</tr>
+	<tr>
+		<td><code>Wife</code></td><td>The piece representing the Wife, 
+		of type <code>Piece</code>.</td>
+	</tr>
+	<tr>
+		<td><code>Hen</code></td><td>The piece representing the Hen, 
+		of type <code>Piece</code>.</td>
+	</tr>
+</table> 
+
+</div>
+
+
+<h2>API Summary</h2>
+<div class="container">
+<h3>_Game</h3>
+<table class="table table-striped">
+	<tr>
+		<th>member</th><th>description</th>
+	</tr>
+	<tr>
+		<td><code>name()</code></td><td>Returns a simple string with the name of the game.</td>
+	</tr>
+	<tr>
+		<td><code>availableMoves(Piece)</code></td><td>Returns an array of move strings 
+		("U", "D", "L", "R") indicating the allowable moves for the piece on the gameboard 
+		at the moment.</td>
+	</tr>
+	<tr>
+		<td><code>availableMoves(row,col)</code></td><td>Returns an array of move strings 
+		("U", "D", "L", "R") indicating the allowable moves for any piece at position (row,col).</td>
+	</tr>
+	<tr>
+		<td><code>isOccupied(Position)</code></td><td>Returns true if the position passed
+		in is currently occupied.
+		</td>
+	</tr>
+	<tr>
+		<td><code>isOccupied(row,col)</code></td><td>Returns true if the position identified 
+		by the row and column is currently occupied.
+		</td>
+	</tr>
+	<tr>
+		<td><code>log(string)</code></td><td>Writes a string to the console visible under 
+		the gameboard on the UI.
+		</td>
+	</tr>
+	<tr>
+		<td><code>moves()</code></td><td>Returns the current number of moves made so far.
+		</td>
+	</tr>
+	<tr>
+		<td><code>randomInt(min, max)</code></td><td>Returns a uniformly distributed 
+		random integer (using the JavaScript <code>Math.random()</code> function) between
+		the min and max (inclusive).
+		</td>
+	</tr>
+
+
+</table> 
+
+</div>
+
+<div class="container">
+<h3>Piece</h3>
+<table class="table table-striped">
+	<tr>
+		<th>member</th><th>description</th>
+	</tr>
+	<tr>
+		<td><code>name</code></td>
+		<td>The name property of the piece, of type String.</td>
+	</tr>
+	<tr>
+		<td><code>position</code></td>
+		<td>The property with the current position of the piece, of type Position.</td>
+	</tr>
+	<tr>
+		<td><code>capture(Piece)</code></td>
+		<td>The human piece move on top of a chicken (capturing it).  This can only
+		happen if the human piece (Farmer or Wife) is already next to a chicken.</td>
+	</tr>
+	<tr>
+		<td><code>distanceTo(Position)</code></td><td>Returns the distance of this 
+		piece to the position position object passed in as the argument.</td>
+	</tr>
+	<tr>
+		<td><code>distanceTo(row,col)</code></td><td>Returns the distance of this 
+		piece to the position indicated by the row and col.</td>
+	</tr>
+	<tr>
+		<td><code>isActive()</code></td><td>Returns true if this piece is still chasing
+		a chicken.  Once a piece has captured a chicken it is no longer active and 
+		remains in the last position (with the chicken).</td>
+	</tr>
+	<tr>
+		<td><code>isNextTo(Piece)</code></td><td>Returns true if this piece is next to 
+		the piece in the argument.  There are four globally defined pieces; <code>Rooster</code>,
+		<code>Farmer</code>, <code>Wife</code> and <code>Hen</code>.
+		</td>
+	</tr>
+	<tr>
+		<td><code>moveRandom()</code></td><td>Returns a valid move for this piece that
+		is randomly selected from all the available moves for this piece.
+		</td>
+	</tr>
+</table> 
+
+</div>
+
+<div class="container">
+<h3>Position</h3>
+<table class="table table-striped">
+	<tr>
+		<th>member</th><th>description</th>
+	</tr>
+	<tr>
+		<td><code>row</code></td>
+		<td>The current row that this piece is in, of type number (integer).</td>
+	</tr>
+	<tr>
+		<td><code>col</code></td>
+		<td>The current column that this piece is in, of type number (integer).</td>
+	</tr>
+	<tr>
+		<td><code>isNextTo(Position)</code></td>
+		<td>Returns true if the current position is next to the position object
+		passed in as the argument.</td>
+	</tr>
+</table> 
+
+</div>
+
+
+</body>
+</html>
+
+
