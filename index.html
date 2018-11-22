@@ -264,7 +264,7 @@ action.moveRandom();
                   
                   </div>
                   <div class="panel-footer">
-                  	<button type="button" class="btn btn-default" onclick="updateAlgorithms()" id="updateBtn">
+                  	<button type="button" class="btn btn-default" onclick="updateAlgorithm()" id="updateBtn">
 						<span class="glyphicon glyphicon-cloud-upload"></span> Update Algorithm
 					</button>
                   </div>
@@ -500,24 +500,12 @@ action.moveRandom();
 				board.rows[vrow+1].cells[vcol+1].innerHTML = '<img src="images/vc.png">';
 			}
 		}
-
-/* 		
-  
- 		var val = "(" + environment._vac_row + "," + environment._vac_col+")\n";
-		for(var r=0;r<10;r++){
-			val += "\n";
-			for(var c=0; c<10; c++ ) {
-				if( environment.grid(r,c) == undefined || environment.grid(r,c) == '') {
-					val += "_";
-				} else {
-					val += environment.grid(r,c);
-				}
-				
-			}
-		}
-		console.log(val);
- */
  	}
+	
+	function updateAlgorithm(){
+		algorithm = $('#algorithm').val();
+		log('Algorithm updated.');
+	}
 
 
 
