@@ -34,14 +34,8 @@ class Action {
 		if( this._environment.canNavigate(row,col+1) ) dirs += "R";
 		if( this._environment.canNavigate(row,col-1) ) dirs += "L";
 		
-		var d = new Date();
-		
 		var no_directions = dirs.length;
 		var index = this.randomInt(0, no_directions);
-
-		console.log(d.getTime() + ": " + dirs + " index: " + index + "/" + no_directions );
-
-		
 		var dir = dirs.charAt(index);
 		
 		switch (dir) {
@@ -58,7 +52,6 @@ class Action {
 			this.moveDown();
 			break;
 		}
-		
 		
 	}
 	
