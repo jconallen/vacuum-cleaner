@@ -37,7 +37,10 @@
 				</div>
 				<div class="panel-body" >
 						<button type="button" class="btn btn-default" onclick="next()" id="nextBtn">
-							<span class="glyphicon glyphicon-step-forward"></span> Next Move
+							<span class="glyphicon glyphicon-step-forward"></span> Next 
+						</button>
+						<button type="button" class="btn btn-default" onclick="run()" id="runBtn">
+							<span class="glyphicon glyphicon-play"></span> Run
 						</button>
 						<button type="button" class="btn btn-default" onclick="block()" id="blockBtn">
 							<span class="glyphicon glyphicon-stop"></span> Block Cells
@@ -48,7 +51,7 @@
 						<button type="button" class="btn btn-default" onclick="place()" id="placeBtn">
 							<span class="glyphicon glyphicon-ice-lolly"></span> Place Vacuum
 						</button>
-						<button type="button" class="btn btn-default" onclick="reset()" id="placeBtn">
+						<button type="button" class="btn btn-default" onclick="reset()" id="resetBtn">
 							<span class="glyphicon glyphicon-refresh"></span> Reset
 						</button>
 				</div>
@@ -302,6 +305,9 @@ action.moveRandom();
 	var algorithm = $('#algorithm').text();
 	var vacuumState = {};
 	
+	var running = false;
+	var stop = false;
+	
 	var vacuumWorker;
 	
 	if (typeof(Worker) !== "undefined") {
@@ -318,12 +324,41 @@ action.moveRandom();
 			if( e.data.log != undefined ) {
 				log(e.data.log);
 			}
+			if( running && !stop ) {
+				setTimeout(function(){
+					running = false;
+					next();
+					running = true;
+				}, 500);
+			}
 		}
 	} else {
 	    alert('Web Worker not supported in this browser');
 	} 
 	
-
+	function run(){
+		if( running ) {
+			running = false;
+			stop = true;
+			$('#nextBtn').prop("disabled", false);
+			$('#dirtBtn').prop("disabled", false);
+			$('#placeBtn').prop("disabled", false);
+			$('#blockBtn').prop("disabled", false);
+			$('#resetBtn').prop("disabled", false);
+			$('#runBtn').html('<span class="glyphicon glyphicon-play"></span> Run');
+		} else {
+			running = true;
+			stop = false;
+			$('#nextBtn').prop("disabled", true);
+			$('#dirtBtn').prop("disabled", true);
+			$('#placeBtn').prop("disabled", true);
+			$('#blockBtn').prop("disabled", true);
+			$('#resetBtn').prop("disabled", true);
+			$('#runBtn').html('<span class="glyphicon glyphicon-stop"></span> Stop');
+			setTimeout(next(), 500);
+		}
+	}
+	
 	function next(){
 		vacuumWorker.postMessage({ "environment": environment, "algorithm": algorithm, "state": vacuumState } );
 	}
@@ -343,6 +378,8 @@ action.moveRandom();
 			$('#nextBtn').prop("disabled", false);
 			$('#dirtBtn').prop("disabled", false);
 			$('#placeBtn').prop("disabled", false);
+			$('#runBtn').prop("disabled", false);
+			$('#resetBtn').prop("disabled", false);
 			$('#blockBtn').html('<span class="glyphicon glyphicon-stop"></span> Block Cells');
 			
 			var table = document.getElementById("world");
@@ -358,6 +395,8 @@ action.moveRandom();
 			$('#nextBtn').prop("disabled", true);
 			$('#dirtBtn').prop("disabled", true);
 			$('#placeBtn').prop("disabled", true);
+			$('#runBtn').prop("disabled", true);
+			$('#resetBtn').prop("disabled", true);
 			$('#blockBtn').html('<span class="glyphicon glyphicon-stop"></span> Done');
 			
 			var table = document.getElementById("world");
@@ -393,6 +432,8 @@ action.moveRandom();
 			$('#nextBtn').prop("disabled", false);
 			$('#blockBtn').prop("disabled", false);
 			$('#placeBtn').prop("disabled", false);
+			$('#runBtn').prop("disabled", false);
+			$('#resetBtn').prop("disabled", false);
 			$('#dirtBtn').html('<span class="glyphicon glyphicon-triangle-top"></span> Place Dirt');
 			
 			var table = document.getElementById("world");
@@ -408,6 +449,8 @@ action.moveRandom();
 			$('#nextBtn').prop("disabled", true);
 			$('#blockBtn').prop("disabled", true);
 			$('#placeBtn').prop("disabled", true);
+			$('#runBtn').prop("disabled", true);
+			$('#resetBtn').prop("disabled", true);
 			$('#dirtBtn').html('<span class="glyphicon glyphicon-stop"></span> Done');
 			
 			var table = document.getElementById("world");
@@ -444,6 +487,8 @@ action.moveRandom();
 			$('#nextBtn').prop("disabled", true);
 			$('#dirtBtn').prop("disabled", true);
 			$('#blockBtn').prop("disabled", true);
+			$('#runBtn').prop("disabled", true);
+			$('#resetBtn').prop("disabled", true);
 			$('#placeBtn').html('<span class="glyphicon glyphicon-stop"></span> Done');
 			
 			var table = document.getElementById("world");
@@ -475,6 +520,8 @@ action.moveRandom();
 			$('#nextBtn').prop("disabled", false);
 			$('#dirtBtn').prop("disabled", false);
 			$('#blockBtn').prop("disabled", false);
+			$('#runBtn').prop("disabled", false);
+			$('#resetBtn').prop("disabled", false);
 			$('#placeBtn').html('<span class="glyphicon glyphicon-ice-lolly"></span> Place Vacuum');
 			
 			var table = document.getElementById("world");
