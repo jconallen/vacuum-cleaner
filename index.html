@@ -331,6 +331,7 @@ action.moveRandom();
 	function reset(){
 		var state = JSON.parse(starting_state);
 		environment.update(state);
+		vacuumState = {};
 		updateDisplay();
 	}
 	
