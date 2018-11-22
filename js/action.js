@@ -37,7 +37,7 @@ class Action {
 		var d = new Date();
 		
 		var no_directions = dirs.length;
-		var index = this.randomInt(0, no_directions-1);
+		var index = this.randomInt(0, no_directions);
 
 		console.log(d.getTime() + ": " + dirs + " index: " + index + "/" + no_directions );
 
@@ -63,7 +63,7 @@ class Action {
 	}
 	
 	randomInt(min, max) {
-	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	    return Math.floor(Math.random() * (max - min)) + min;
 	}
 	
 }
