@@ -374,11 +374,13 @@ action.moveRandom();
 				        		this.style.backgroundColor = 'grey';
 				        		environment.block(r,c);
 			        		}
+			        		starting_state = JSON.stringify( environment );
 			        	}
 			        }
 			    }
+			    
 			}
-			starting_state = JSON.stringify( environment );
+			
 		}
 	}
 
@@ -421,10 +423,11 @@ action.moveRandom();
 				        	this.innerHTML = '<img src="images/dirt.png">';
 				        	environment.addDirt(r,c);
 			        	}
+			        	starting_state = JSON.stringify( environment );
 			        };
 			    }
 			}
-			starting_state = JSON.stringify( environment );
+			
 		}
 	}
 	
